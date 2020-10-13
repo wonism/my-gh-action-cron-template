@@ -1,0 +1,25 @@
+name: DO SOMETHING
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    # NOTE: GH action uses GMT timezone
+    - cron: "0 * * * *"
+           # │ │ │ │ └───────────── day of the week (0 - 6)
+           # │ │ │ └───────────── month (1 - 12)
+           # │ │ └───────────── day of the month (1 - 31)
+           # │ └───────────── hour (0 - 23)
+           # └───────────── minute (0 - 59)
+jobs:
+  fetch:
+    name: Do task 1
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: run script
+        working-directory: scripts
+        run: |
+          ./task1.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
